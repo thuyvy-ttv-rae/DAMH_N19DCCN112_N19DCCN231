@@ -73,7 +73,7 @@ def random_obj(x_velocity, score):
 if __name__ == '__main__':
     pygame.init()
     screen = pygame.display.set_mode((1000, 500)) #Độ dài, rộng của màn hình
-    pygame.display.set_caption('My heo') #Tên của cửa sổ
+    pygame.display.set_caption('DAMH_N19DCCN112_N19DCCN231') #Tên của cửa sổ
     bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y, x_velocity, y_velocity, score, pausing = new()
     # bool_s2: s2 là sound2_ âm kết thúc, = true là chưa kêu lần nào. kêu 1 lần nó sẽ về false
 
