@@ -8,7 +8,7 @@ from pygame import time as time
 from pygame.event import get
 from pygame.constants import QUIT, K_SPACE, KEYDOWN
 
-def new():
+def init_game():
     background_x, background_y = 0, 0
     dinosaur_x, dinosaur_y = 100, 360
     obj_x, obj_y = 1000, 320
@@ -34,14 +34,14 @@ def velocity_obj(obj_x, i):
     # obj = [pygame.image.load('tree1.png'), pygame.image.load('tree2.png'), pygame.image.load('tree3.png'),
     #        pygame.image.load('cloud1.png'), pygame.image.load('cloud2.png'), pygame.image.load('cloud3.png')]
     # nó tương tự velocity_tree lúc trước nhưng giờ ghi object để dùng chung cho đám mây
-    ojb_rect = screen.blit(obj[i], (obj_x, obj_y))
+    obj_rect = screen.blit(obj[i], (obj_x, obj_y))
     obj_x -= x_velocity
     if obj_x <= -100: # -100 là tọa độ biến mất của object, nếu để nó lớn hơn nhiều quá thì nó sẽ giống như biến mất chứ
                     # không phải chạy qua
-        ojb_x = 1100 # 1000 là tọa độ xuất hiện của object, nếu để nó nhỏ hơn nhiều quá thì nó sẽ giống như bổng nhiên
+        obj_x = 1100 # 1000 là tọa độ xuất hiện của object, nếu để nó nhỏ hơn nhiều quá thì nó sẽ giống như bổng nhiên
                     # xuất hiện không phải chạy ra (xuất hiện bên phải ngoài màn hình background)
-        return ojb_rect, ojb_x, True # true/ false là để cho step
-    return ojb_rect, obj_x, False
+        return obj_rect, obj_x, True # true/ false là để cho step
+    return obj_rect, obj_x, False
 
 def velocity_dinosaur(dinosaur_y, jump, up):
     up += 1
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     init()
     screen = display.set_mode((1000, 500)) #Độ dài, rộng của màn hình
     display.set_caption('DAMH_N19DCCN112_N19DCCN231') #Tên của cửa sổ
-    bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y, x_velocity, y_velocity, score, pausing = new()
+    bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y, x_velocity, y_velocity, score, pausing = init_game()
     # bool_s2: s2 là sound2_ âm kết thúc, = true là chưa kêu lần nào. kêu 1 lần nó sẽ về false
 
     WHITE = (255, 255, 255)
@@ -93,7 +93,6 @@ if __name__ == '__main__':
 
     font = SysFont('Times New Roman', 20)
     font1 = SysFont('Times New Roman', 40)
-
 
     background = image.load('asset/images/background.png')
     write(100,100,str(background),font)
@@ -123,8 +122,8 @@ if __name__ == '__main__':
 
         background_x = velocity_background(background_x)
         write(5, 5, "Score: " + str(score), font)
-        # if x_velocity > 0:
-        #     write(5, 25, "Speed: " + str(x_velocity-5), font)
+        if x_velocity > 0:
+            write(5, 25, "Speed: " + str(int(score/5)+1), font)
 
         if step:
             rand_obj, x_velocity, score = random_obj(x_velocity, score)
@@ -159,6 +158,6 @@ if __name__ == '__main__':
                         mixer.Sound.play(sound1)
                         jump = True
                     if pausing:
-                        bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y , x_velocity, y_velocity, score, pausing = new()
+                        bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y , x_velocity, y_velocity, score, pausing = init_game()
         display.flip()
     quit()
