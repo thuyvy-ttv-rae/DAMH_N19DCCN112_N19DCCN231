@@ -87,13 +87,15 @@ if __name__ == '__main__':
     font = pygame.font.SysFont('Times New Roman', 20)
     font1 = pygame.font.SysFont('Times New Roman', 40)
 
-    background = pygame.image.load('background.png')
+    background = pygame.image.load('asset/images/background.png')
     write(100,100,str(background),font)
-    dinosaur = pygame.image.load('dinosaur.png')
-    obj = [pygame.image.load('tree1.png'), pygame.image.load('tree2.png'), pygame.image.load('tree3.png'),
-           pygame.image.load('cloud1.png'), pygame.image.load('cloud2.png'), pygame.image.load('cloud3.png')]
-    sound1 = pygame.mixer.Sound('tick.mp3')
-    sound2 = pygame.mixer.Sound('te.mp3')
+    dinosaur = pygame.image.load('asset/images/dinosaur.png')
+    obj = [pygame.image.load('asset/images/tree1.png'), pygame.image.load('asset/images/tree2.png'), pygame.image.load(
+        'asset/images/tree3.png'),
+           pygame.image.load('asset/images/Cloud1.png'), pygame.image.load('asset/images/Cloud2.png'), pygame.image.load(
+            'asset/images/cloud3.png')]
+    sound1 = pygame.mixer.Sound('asset/audio/tick.mp3')
+    sound2 = pygame.mixer.Sound('asset/audio/te.mp3')
     clock = pygame.time.Clock()
 
     jump = False # Nhảy cao
