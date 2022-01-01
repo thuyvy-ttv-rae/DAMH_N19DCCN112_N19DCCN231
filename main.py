@@ -60,8 +60,16 @@ def velocity_dinosaur(dinosaur_y, jump, up):
         up = 0 # vì lúc này còn nhảy nhưng jump đã về false nên phải set up về 0 để nó k bị nhảy tưng tưng trên không
     return dinosaur_rect, dinosaur_y, jump, up
 
+def colliderect_rect ():
+    if dinosaur_rect[0]+dinosaur_rect[2] < obj_rect[0] or obj_rect[0]+obj_rect[2] < dinosaur_rect[0]:
+        return False
+    if dinosaur_rect[1]+dinosaur_rect[3] < obj_rect[1] or dinosaur_rect[1] > obj_rect[1]+obj_rect[3]:
+        return False
+    return True
+
 def gameOver(pausing, x_velocity, y_velocity):
-    if dinosaur_rect.colliderect(obj_rect):
+    if colliderect_rect():
+    # if dinosaur_rect.colliderect(obj_rect):
         pausing = True
         write(360, 200, "GAME OVER", font1)
         x_velocity = 0
@@ -77,6 +85,7 @@ def random_obj(x_velocity, score):
     # Mỗi lần obj đạt mốc x*3 thì tốc độ tăng 1 nhưng tới 100đ tốc độ không tăng nữa
     # Vì tới 100đ là tốc độ tăng gấp 10 lần rồi rất nhanh rồi
     return rand_obj, x_velocity, score
+
 if __name__ == '__main__':
     init()
     screen = display.set_mode((1000, 500)) #Độ dài, rộng của màn hình
@@ -142,7 +151,8 @@ if __name__ == '__main__':
 
         dinosaur_rect, dinosaur_y, jump, up = velocity_dinosaur(dinosaur_y, jump, up)
         pausing, x_velocity, y_velocity = gameOver(pausing, x_velocity, y_velocity)
-        # write(100, 100, str(dinosaur_rect), font)
+        write(100, 100, str(dinosaur_rect), font)
+        write(50, 50, str(obj_rect), font)
 
         if pausing and bool_s2:
             mixer.Sound.play(sound2)
