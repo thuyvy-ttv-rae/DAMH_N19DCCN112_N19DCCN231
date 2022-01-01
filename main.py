@@ -1,8 +1,6 @@
 from random import randint
-
 from pygame.font import SysFont
 from pygame import display as display
-from pygame import font as font
 from pygame import image as image
 from pygame import init
 from pygame import mixer as mixer
@@ -100,12 +98,17 @@ if __name__ == '__main__':
     background = image.load('asset/images/background.png')
     write(100,100,str(background),font)
     dinosaur = image.load('asset/images/dinosaur.png')
-    obj = [image.load('asset/images/tree1.png'), image.load('asset/images/tree2.png'), image.load(
-        'asset/images/tree3.png'),
-           image.load('asset/images/Cloud1.png'), image.load('asset/images/Cloud2.png'), image.load(
-            'asset/images/cloud3.png')]
+    obj = [image.load('asset/images/tree1.png'),
+           image.load('asset/images/tree2.png'),
+           image.load('asset/images/tree3.png'),
+           image.load('asset/images/Cloud1.png'),
+           image.load('asset/images/Cloud2.png'),
+           image.load('asset/images/cloud3.png')]
+
     sound1 = mixer.Sound('asset/audio/tick.mp3')
     sound2 = mixer.Sound('asset/audio/te.mp3')
+
+    FPS = 60
     clock = time.Clock()
 
     jump = False # Nhảy cao
@@ -115,7 +118,7 @@ if __name__ == '__main__':
     # Nếu nó đặt mốc 10 sẽ nhảy lên 1 lần.
 
     while running:
-        clock.tick(60)
+        clock.tick(FPS)
         screen.fill(WHITE)
 
         background_x = velocity_background(background_x)
