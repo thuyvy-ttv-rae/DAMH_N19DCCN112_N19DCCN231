@@ -1,5 +1,14 @@
-import pygame
-import random
+from random import randint
+
+from pygame.font import SysFont
+from pygame import display as display
+from pygame import font as font
+from pygame import image as image
+from pygame import init
+from pygame import mixer as mixer
+from pygame import time as time
+from pygame.event import get
+from pygame.constants import QUIT, K_SPACE, KEYDOWN
 
 def new():
     background_x, background_y = 0, 0
@@ -62,7 +71,7 @@ def gameOver(pausing, x_velocity, y_velocity):
     return pausing, x_velocity, y_velocity
 
 def random_obj(x_velocity, score):
-    rand_obj = random.randint(0, 5) # random object
+    rand_obj = randint(0, 5) # random object
     score += 1
     write(5, 5, "Score: " + str(score), font)
     if score % 3 == 0 and score < 30:
@@ -71,9 +80,9 @@ def random_obj(x_velocity, score):
     # Vì tới 100đ là tốc độ tăng gấp 10 lần rồi rất nhanh rồi
     return rand_obj, x_velocity, score
 if __name__ == '__main__':
-    pygame.init()
-    screen = pygame.display.set_mode((1000, 500)) #Độ dài, rộng của màn hình
-    pygame.display.set_caption('DAMH_N19DCCN112_N19DCCN231') #Tên của cửa sổ
+    init()
+    screen = display.set_mode((1000, 500)) #Độ dài, rộng của màn hình
+    display.set_caption('DAMH_N19DCCN112_N19DCCN231') #Tên của cửa sổ
     bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y, x_velocity, y_velocity, score, pausing = new()
     # bool_s2: s2 là sound2_ âm kết thúc, = true là chưa kêu lần nào. kêu 1 lần nó sẽ về false
 
@@ -84,19 +93,20 @@ if __name__ == '__main__':
     # step là bước chuyển của object hiện tại đang là 1200 (là một bước) = 1000 chiều ngang của backround (X)
     # + 200 (là rìa xuất hiện và biến mất đã nói ở hàm velocity_obj
 
-    font = pygame.font.SysFont('Times New Roman', 20)
-    font1 = pygame.font.SysFont('Times New Roman', 40)
+    font = SysFont('Times New Roman', 20)
+    font1 = SysFont('Times New Roman', 40)
 
-    background = pygame.image.load('asset/images/background.png')
+
+    background = image.load('asset/images/background.png')
     write(100,100,str(background),font)
-    dinosaur = pygame.image.load('asset/images/dinosaur.png')
-    obj = [pygame.image.load('asset/images/tree1.png'), pygame.image.load('asset/images/tree2.png'), pygame.image.load(
+    dinosaur = image.load('asset/images/dinosaur.png')
+    obj = [image.load('asset/images/tree1.png'), image.load('asset/images/tree2.png'), image.load(
         'asset/images/tree3.png'),
-           pygame.image.load('asset/images/Cloud1.png'), pygame.image.load('asset/images/Cloud2.png'), pygame.image.load(
+           image.load('asset/images/Cloud1.png'), image.load('asset/images/Cloud2.png'), image.load(
             'asset/images/cloud3.png')]
-    sound1 = pygame.mixer.Sound('asset/audio/tick.mp3')
-    sound2 = pygame.mixer.Sound('asset/audio/te.mp3')
-    clock = pygame.time.Clock()
+    sound1 = mixer.Sound('asset/audio/tick.mp3')
+    sound2 = mixer.Sound('asset/audio/te.mp3')
+    clock = time.Clock()
 
     jump = False # Nhảy cao
     running = True
@@ -122,7 +132,7 @@ if __name__ == '__main__':
             # Nhỏ hơn 3 là cây tung độ xuất hiện của nó sẽ là 320
         else:
             if 1100 >= obj_x >= 1000:
-                obj_y = random.randint(150, 320)
+                obj_y = randint(150, 320)
             # từ 3-5 sẽ là mây mây sẽ được random tọa độ
             # if 1000 tới 1100 vì ở đây object sẽ chưa xuất hiện có random cũng không làm hình xuất hiện lung tung
             # khoảng này có thể nhỏ hơn 1050-1100 hay 1000- 1050 nói chung trong khoảng object chưa xuất hiên
@@ -133,19 +143,19 @@ if __name__ == '__main__':
         # write(100, 100, str(dinosaur_rect), font)
 
         if pausing and bool_s2:
-            pygame.mixer.Sound.play(sound2)
+            mixer.Sound.play(sound2)
             bool_s2 = False
             # Khúc này để âm thanh chỉ xuất hiện 1 lần
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in get():
+            if event.type == QUIT:
                 running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
+            if event.type == KEYDOWN:
+                if event.key == K_SPACE:
                     if dinosaur_y == 360:
-                        pygame.mixer.Sound.play(sound1)
+                        mixer.Sound.play(sound1)
                         jump = True
                     if pausing:
                         bool_s2, background_x, background_y, dinosaur_x, dinosaur_y, obj_x, obj_y , x_velocity, y_velocity, score, pausing = new()
-        pygame.display.flip()
-    pygame.quit()
+        display.flip()
+    quit()
