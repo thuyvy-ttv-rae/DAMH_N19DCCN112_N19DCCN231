@@ -35,8 +35,6 @@ def velocity_background(background_x):
 
 
 def velocity_obj(obj_x, i):
-    # obj = [pygame.image.load('tree1.png'), pygame.image.load('tree2.png'), pygame.image.load('tree3.png'),
-    #        pygame.image.load('cloud1.png'), pygame.image.load('cloud2.png'), pygame.image.load('cloud3.png')]
     # nó tương tự velocity_tree lúc trước nhưng giờ ghi object để dùng chung cho đám mây
     obj_rect = screen.blit(obj[i], (obj_x, obj_y))
     obj_x -= x_velocity
@@ -73,7 +71,6 @@ def colliderect_rect():
         return False
     return True
 
-
 def gameOver(pausing, x_velocity, y_velocity):
     if colliderect_rect():
         # if dinosaur_rect.colliderect(obj_rect):
@@ -83,12 +80,10 @@ def gameOver(pausing, x_velocity, y_velocity):
         y_velocity = 0
     return pausing, x_velocity, y_velocity
 
-
 def random_obj(x_velocity, score):
     rand_obj = randint(0, 5)  # random object
     score += 1
-    write(5, 5, "Score: " + str(score), font)
-    if score % 3 == 0 and score <= 30:
+    if score % 3 == 0 and score <= 27:
         x_velocity += 1
     # Mỗi lần obj đạt mốc x*3 thì tốc độ tăng 1 nhưng tới 100đ tốc độ không tăng nữa
     # Vì tới 100đ là tốc độ tăng gấp 10 lần rồi rất nhanh rồi
@@ -142,8 +137,8 @@ if __name__ == '__main__':
         background_x = velocity_background(background_x)
         write(5, 5, "Score: " + str(score), font)
 
-        if x_velocity > 0 and score <= 30:
-            speed = str(int(score/3)+1)
+        if x_velocity > 0 and score <= 27:
+            speed = str(int(score / 3) + 1)
         write(5, 25, "Speed: " + speed, font)
 
         if step:
